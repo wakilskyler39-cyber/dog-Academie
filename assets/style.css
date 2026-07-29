@@ -55,6 +55,7 @@ a{color:inherit;}
 .container{max-width:1120px; margin:0 auto; padding:0 28px;}
 
 /* ---------- HEADER ---------- */
+/* Le header contient le logo, le menu et le bouton d'appel à l'action */
 header.site{
   background:var(--ink);
   border-bottom:3px solid var(--gold);
@@ -100,8 +101,27 @@ header.site{
 .header-cta:hover{background:transparent; color:var(--gold-light) !important;}
 
 @media (max-width:860px){
-  .nav-row{grid-template-columns:1fr auto;}
-  .header-cta-wrap{display:none;}
+  /* Règles pour petits écrans : header et navigation adaptatifs */
+  .nav-row{
+    grid-template-columns:1fr;
+    row-gap:14px;
+    align-items:start;
+  }
+  .nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    margin:0;
+    padding:0;
+  }
+  .nav a{
+    padding:8px 10px;
+    font-size:.82rem;
+  }
+  .header-cta-wrap{
+    justify-self:start;
+  }
 }
 
 /* ---------- HERO ---------- */
@@ -327,7 +347,26 @@ footer.site a:hover{color:var(--gold-light);}
 }
 
 @media (max-width:860px){
-  .nav{display:none;}
+  .nav-row{
+    grid-template-columns:1fr;
+    row-gap:14px;
+    align-items:start;
+  }
+  .nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    margin:0;
+    padding:0;
+  }
+  .nav a{
+    padding:8px 10px;
+    font-size:.82rem;
+  }
+  .header-cta-wrap{
+    justify-self:start;
+  }
   .grid-3{grid-template-columns:1fr;}
   .grid-2{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
