@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Dog Academy</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-row">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Dog Academy">
+      <span>
+        <span class="brand-name">DOG ACADEMY</span>
+        <span class="brand-tag">Sécurité · Protection · Engagement</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Nos services</a>
+      <a href="chiens.html">Nos chiens</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="header-cta-wrap">
+      <a href="contact.html" class="header-cta">Demander un devis</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="padding:70px 0 60px;">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold-light)">Parlons de votre projet</div>
+    <h1 style="font-size:clamp(2rem,4vw,3rem);">Contactez Dog Academy</h1>
+    <p class="lead">Nous serions honorés de vous présenter nos chiens et d'échanger avec vous afin d'étudier une collaboration adaptée à vos besoins.</p>
+  </div>
+</section>
+
+<div class="ribbon"><span>Réponse rapide — devis personnalisé</span></div>
+
+<section class="section-cream">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div>
+        <div class="eyebrow">Formulaire de demande</div>
+        <h2>Décrivez-nous votre besoin</h2>
+        <p>Vos demandes sont enregistrées directement — vous les retrouverez dans votre <a href="admin.html" style="color:var(--gold-deep); text-decoration:underline;">espace demandes</a>.</p>
+
+        <form id="contactForm">
+          <div class="grid grid-2">
+            <div class="field">
+              <label for="nom">Nom / Société</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom ou raison sociale" required>
+            </div>
+            <div class="field">
+              <label for="tel">Téléphone</label>
+              <input type="tel" id="tel" name="tel" placeholder="Votre numéro" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="votre@email.com">
+          </div>
+          <div class="field">
+            <label for="site">Type de site à protéger</label>
+            <input type="text" id="site" name="site" placeholder="Entrepôt, chantier, commerce, événement…">
+          </div>
+          <div class="field">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre besoin : type de site, horaires, durée de la mission…"></textarea>
+          </div>
+          <button type="submit" class="btn" id="contactSubmit" style="border:1px solid var(--gold); cursor:pointer;">Envoyer la demande</button>
+          <div class="form-status" id="formStatus"></div>
+        </form>
+      </div>
+
+      <div class="card-dark">
+        <h3 style="margin-bottom:1.2rem;">Nos coordonnées</h3>
+
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z"/></svg>
+          <div>
+            <strong>Téléphone</strong>
+            <span class="fill-note">Nom : à compléter</span><br>
+            <span class="fill-note">Téléphone : à compléter</span>
+          </div>
+        </div>
+
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm16 3.2-7.5 5.4a1 1 0 0 1-1 0L4 7.2V19h16V7.2ZM5 5l7 5 7-5H5Z"/></svg>
+          <div>
+            <strong>E-mail</strong>
+            <span class="fill-note">E-mail : à compléter</span>
+          </div>
+        </div>
+
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a1 1 0 0 1 1 1v1.06a8 8 0 0 1 6.94 6.94H21a1 1 0 1 1 0 2h-1.06A8 8 0 0 1 13 20.94V22a1 1 0 1 1-2 0v-1.06A8 8 0 0 1 4.06 14H3a1 1 0 1 1 0-2h1.06A8 8 0 0 1 11 5.06V4a1 1 0 0 1 1-1Zm0 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
+          <div>
+            <strong>Disponibilité</strong>
+            <span>Missions de jour comme de nuit, 7j/7</span>
+          </div>
+        </div>
+
+        <div style="margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid rgba(217,189,125,.25);">
+          <p style="color:var(--cream-2); font-size:.9rem; margin:0;">
+            « Dans l'attente de votre retour, nous vous prions d'agréer, Madame, Monsieur,
+            l'expression de nos salutations distinguées. »
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="external-sites">
+  <div class="container">
+    <div class="eyebrow">Nos différents sites</div>
+    <h2>Accédez à nos autres sites</h2>
+    <div class="site-links">
+      <a class="site-link" href="images/1.png" target="_blank" rel="noopener noreferrer">
+        <img src="images/1.png" alt="Aperçu site 1">
+      </a>
+      <a class="site-link" href="images/2.png" target="_blank" rel="noopener noreferrer">
+        <img src="images/2.png" alt="Aperçu site 2">
+      </a>
+    </div>
+  </div>
+</section>
+<footer class="site">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>DOG ACADEMY</h4>
+        <p style="color:var(--cream-2); font-size:.9rem; max-width:320px;">Mise à disposition de chiens de garde dressés pour la sécurité de vos sites, entreprises et événements.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Nos services</a></li>
+          <li><a href="chiens.html">Nos chiens</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="admin.html">Espace demandes (interne)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><span class="fill-note">à compléter</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dog Academy — Sécurité · Protection · Engagement</span>
+      <span>Site réalisé pour Dog Academy</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Header shadow once scrolled
+  var header = document.querySelector('header.site');
+  function onScroll(){
+    if(!header) return;
+    if(window.scrollY > 12){ header.classList.add('is-scrolled'); }
+    else { header.classList.remove('is-scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Reveal-on-scroll for content blocks
+  var revealSelectors = '.card, .card-dark, .breed, .stat, .info-line';
+  var els = document.querySelectorAll(revealSelectors);
+  els.forEach(function(el, i){
+    el.classList.add('reveal');
+    el.classList.add('reveal-delay-' + ((i % 5) + 1));
+  });
+
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  // Animated count-up for stat numbers (e.g. "24h", "3", "100%")
+  var nums = document.querySelectorAll('.stat .num');
+  nums.forEach(function(el){
+    var raw = el.textContent.trim();
+    var match = raw.match(/^(\d+)(.*)$/);
+    if(!match) return;
+    var target = parseInt(match[1], 10);
+    var suffix = match[2] || '';
+    el.textContent = '0' + suffix;
+    var done = false;
+    var counterIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting && !done){
+          done = true;
+          var start = null;
+          var duration = 1100;
+          function step(ts){
+            if(!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var value = Math.round(target * eased);
+            el.textContent = value + suffix;
+            if(progress < 1){ requestAnimationFrame(step); }
+          }
+          requestAnimationFrame(step);
+          counterIO.unobserve(el);
+        }
+      });
+    }, {threshold:.4});
+    counterIO.observe(el);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var form = document.getElementById('contactForm');
+  if(!form) return;
+  var statusEl = document.getElementById('formStatus');
+  var submitBtn = document.getElementById('contactSubmit');
+
+  function showStatus(msg, ok){
+    statusEl.textContent = msg;
+    statusEl.className = 'form-status show ' + (ok ? 'ok' : 'err');
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    var data = {
+      nom: form.nom.value.trim(),
+      tel: form.tel.value.trim(),
+      email: form.email.value.trim(),
+      site: form.site.value.trim(),
+      message: form.message.value.trim(),
+      date: new Date().toISOString()
+    };
+
+    if(!data.nom || !data.tel){
+      showStatus('Merci de renseigner au minimum votre nom et votre téléphone.', false);
+      return;
+    }
+
+    submitBtn.setAttribute('data-state', 'loading');
+
+    try{
+      if(!window.storage) throw new Error('storage-unavailable');
+      var key = 'contact:' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+      var result = await window.storage.set(key, JSON.stringify(data), true);
+      if(!result) throw new Error('storage-failed');
+      showStatus('Merci ' + data.nom + ', votre demande a bien été enregistrée. Nous vous recontactons rapidement.', true);
+      form.reset();
+    } catch(err){
+      // Fallback: open a pre-filled email if storage isn't available in this context
+      var subject = encodeURIComponent('Demande de devis — ' + data.nom);
+      var body = encodeURIComponent(
+        'Nom / Société : ' + data.nom + '\n' +
+        'Téléphone : ' + data.tel + '\n' +
+        'E-mail : ' + data.email + '\n' +
+        'Type de site : ' + data.site + '\n' +
+        'Message : ' + data.message
+      );
+      showStatus('Votre messagerie va s\'ouvrir pour finaliser l\'envoi de votre demande.', false);
+      window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+    } finally {
+      submitBtn.removeAttribute('data-state');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

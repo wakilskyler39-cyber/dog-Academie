@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace demandes — Dog Academy</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-row">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Dog Academy">
+      <span>
+        <span class="brand-name">DOG ACADEMY</span>
+        <span class="brand-tag">Sécurité · Protection · Engagement</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Nos services</a>
+      <a href="chiens.html">Nos chiens</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-cta-wrap">
+      <a href="contact.html" class="header-cta">Demander un devis</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="padding:60px 0 50px;">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold-light)">Usage interne</div>
+    <h1 style="font-size:clamp(1.8rem,3.6vw,2.6rem);">Espace demandes</h1>
+    <p class="lead" style="max-width:640px;">Liste des demandes envoyées depuis le formulaire de contact du site, les plus récentes en premier.</p>
+  </div>
+</section>
+
+<section class="section-cream">
+  <div class="container">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:12px;">
+      <div class="eyebrow" style="margin-bottom:0;" id="countLabel">Chargement…</div>
+      <button class="btn" id="refreshBtn" style="border:1px solid var(--gold); cursor:pointer; padding:10px 20px;">Actualiser</button>
+    </div>
+
+    <div style="overflow-x:auto; border:1px solid var(--line); background:var(--paper);">
+      <table class="admin-table" id="table">
+        <thead>
+          <tr>
+            <th>Reçu le</th>
+            <th>Nom / Société</th>
+            <th>Téléphone</th>
+            <th>E-mail</th>
+            <th>Type de site</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="admin-empty" id="emptyState" style="display:none;">Aucune demande reçue pour le moment.</div>
+    </div>
+
+    <p style="margin-top:24px; font-size:.82rem; color:var(--text-muted);">
+      Ces données sont stockées dans la base associée à ce site et restent visibles par toute personne ayant accès à cette page.
+      Ne partagez pas ce lien publiquement.
+    </p>
+  </div>
+</section>
+<section class="external-sites">
+  <div class="container">
+    <div class="eyebrow">Nos différents sites</div>
+    <h2>Accédez à nos autres sites</h2>
+    <div class="site-links">
+      <a class="site-link" href="images/1.png" target="_blank" rel="noopener noreferrer">
+        <img src="images/1.png" alt="Aperçu site 1">
+      </a>
+      <a class="site-link" href="images/2.png" target="_blank" rel="noopener noreferrer">
+        <img src="images/2.png" alt="Aperçu site 2">
+      </a>
+    </div>
+  </div>
+</section>
+<footer class="site">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Dog Academy — Sécurité · Protection · Engagement</span>
+      <span>Espace interne</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var tableBody = document.getElementById('tableBody');
+  var emptyState = document.getElementById('emptyState');
+  var table = document.getElementById('table');
+  var countLabel = document.getElementById('countLabel');
+  var refreshBtn = document.getElementById('refreshBtn');
+
+  function escapeHtml(str){
+    return String(str || '').replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function formatDate(iso){
+    try{
+      var d = new Date(iso);
+      return d.toLocaleDateString('fr-FR') + ' à ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+    } catch(e){ return iso || '—'; }
+  }
+
+  async function load(){
+    countLabel.textContent = 'Chargement…';
+    tableBody.innerHTML = '';
+    try{
+      if(!window.storage) throw new Error('storage-unavailable');
+      var listResult = await window.storage.list('contact:', true);
+      var keys = (listResult && listResult.keys) ? listResult.keys : [];
+
+      if(keys.length === 0){
+        table.style.display = 'none';
+        emptyState.style.display = 'block';
+        countLabel.textContent = '0 demande enregistrée';
+        return;
+      }
+
+      var entries = [];
+      for(var i = 0; i < keys.length; i++){
+        try{
+          var res = await window.storage.get(keys[i], true);
+          if(res && res.value){
+            entries.push(JSON.parse(res.value));
+          }
+        } catch(e){ /* skip unreadable entry */ }
+      }
+
+      entries.sort(function(a, b){
+        return new Date(b.date || 0) - new Date(a.date || 0);
+      });
+
+      if(entries.length === 0){
+        table.style.display = 'none';
+        emptyState.style.display = 'block';
+        countLabel.textContent = '0 demande enregistrée';
+        return;
+      }
+
+      table.style.display = '';
+      emptyState.style.display = 'none';
+      countLabel.textContent = entries.length + ' demande' + (entries.length > 1 ? 's' : '') + ' enregistrée' + (entries.length > 1 ? 's' : '');
+
+      entries.forEach(function(entry){
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + escapeHtml(formatDate(entry.date)) + '</td>' +
+          '<td>' + escapeHtml(entry.nom) + '</td>' +
+          '<td>' + escapeHtml(entry.tel) + '</td>' +
+          '<td>' + escapeHtml(entry.email) + '</td>' +
+          '<td>' + escapeHtml(entry.site) + '</td>' +
+          '<td>' + escapeHtml(entry.message) + '</td>';
+        tableBody.appendChild(tr);
+      });
+
+    } catch(err){
+      table.style.display = 'none';
+      emptyState.style.display = 'block';
+      emptyState.textContent = "La base de données n'est pas accessible dans ce contexte d'affichage.";
+      countLabel.textContent = '—';
+    }
+  }
+
+  refreshBtn.addEventListener('click', load);
+  load();
+})();
+</script>
+
+</body>
+</html>
