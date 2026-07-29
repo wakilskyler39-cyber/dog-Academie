@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<!-- HEADER: navigation principale du site, présente sur toutes les pages -->
 <header class="site">
   <div class="nav-row">
     <a href="index.html" class="brand">
@@ -38,8 +39,10 @@
   </div>
 </section>
 
+<!-- BANDEAU D'ACCROCHE -->
 <div class="ribbon"><span>Réponse rapide — devis personnalisé</span></div>
 
+<!-- SECTION CONTACT: formulaire à gauche et coordonnées à droite -->
 <section class="section-cream">
   <div class="container">
     <div class="contact-grid">
@@ -49,7 +52,9 @@
         <h2>Décrivez-nous votre besoin</h2>
         <p>Vos demandes sont enregistrées directement — vous les retrouverez dans votre <a href="admin.html" style="color:var(--gold-deep); text-decoration:underline;">espace demandes</a>.</p>
 
+        <!-- FORMULAIRE PRINCIPAL: ce formulaire collecte les informations client -->
         <form id="contactForm">
+          <!-- Ligne de deux champs côte à côte -->
           <div class="grid grid-2">
             <div class="field">
               <label for="nom">Nom / Société</label>
@@ -112,11 +117,13 @@
             <label for="message">Votre message</label>
             <textarea id="message" name="message" placeholder="Adresse du site, horaires, contraintes d'accès…"></textarea>
           </div>
+          <!-- Bouton d'envoi du formulaire -->
           <button type="submit" class="btn" id="contactSubmit" style="border:1px solid var(--gold); cursor:pointer;">Envoyer la demande</button>
           <div class="form-status" id="formStatus"></div>
         </form>
       </div>
 
+      <!-- CARTE D'INFORMATION: coordonnées et note de contact -->
       <div class="card-dark">
         <h3 style="margin-bottom:1.2rem;">Nos coordonnées</h3>
 
@@ -330,7 +337,71 @@
     }
   });
 })();
-</script>
+  </script>
+
+  <!-- SCRIPT FORMULAIRE: validation et sauvegarde local / fallback mailto -->
+  <script>
+  (function(){
+    var form = document.getElementById('contactForm');
+    if(!form) return;
+    var statusEl = document.getElementById('formStatus');
+    var submitBtn = document.getElementById('contactSubmit');
+
+    function showStatus(msg, ok){
+      statusEl.textContent = msg;
+      statusEl.className = 'form-status show ' + (ok ? 'ok' : 'err');
+    }
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      var data = {
+        nom: form.nom.value.trim(),
+        tel: form.tel.value.trim(),
+        email: form.email.value.trim(),
+        site: form.site.value.trim(),
+        duree: form.duree.value,
+        urgence: form.urgence.value,
+        disponibilite: (form.disponibilite.value || '').trim(),
+        message: form.message.value.trim(),
+        date: new Date().toISOString()
+      };
+
+      if(!data.nom || !data.tel || !data.site || !data.duree || !data.urgence || !data.disponibilite){
+        showStatus('Merci de compléter tous les champs requis du formulaire.', false);
+        return;
+      }
+
+      submitBtn.setAttribute('data-state', 'loading');
+
+      try{
+        if(!window.storage) throw new Error('storage-unavailable');
+        var key = 'contact:' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+        var result = await window.storage.set(key, JSON.stringify(data), true);
+        if(!result) throw new Error('storage-failed');
+        showStatus('Merci ' + data.nom + ', votre demande a bien été enregistrée. Nous vous recontactons rapidement.', true);
+        form.reset();
+      } catch(err){
+        // Fallback: open a pre-filled email si l'enregistrement local n'est pas disponible
+        var subject = encodeURIComponent('Demande de devis — ' + data.nom);
+        var body = encodeURIComponent(
+          'Nom / Société : ' + data.nom + '\n' +
+          'Téléphone : ' + data.tel + '\n' +
+          'E-mail : ' + data.email + '\n' +
+          'Type de site : ' + data.site + '\n' +
+          'Durée souhaitée : ' + data.duree + '\n' +
+          'Urgence : ' + data.urgence + '\n' +
+          'Disponibilité souhaitée : ' + data.disponibilite + '\n' +
+          'Message : ' + data.message
+        );
+        showStatus('Votre messagerie va s\'ouvrir pour finaliser l\'envoi de votre demande.', false);
+        window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+      } finally {
+        submitBtn.removeAttribute('data-state');
+      }
+    });
+  })();
+  </script>
 
 </body>
 </html>
